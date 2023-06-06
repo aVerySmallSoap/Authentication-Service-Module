@@ -5,5 +5,6 @@ import java.sql.SQLException;
 
 public interface IConnector {
     Connection getConnection() throws SQLException;
-//    boolean registerToDB(String pass, String salt)throws SQLException;
+    String retrieveFromDB(String user);
+    void registerToDB(String pass, String salt)throws SQLException;
 }

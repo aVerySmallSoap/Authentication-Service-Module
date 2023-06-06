@@ -5,6 +5,7 @@ import Interfaces.Service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ConnectionService implements Service, IConnector {
@@ -29,13 +30,21 @@ public class ConnectionService implements Service, IConnector {
         }
     }
 
-//    @Override
-//    public boolean registerToDB(String pass, String salt){
-//        try{
-//            System.out.println("A");
-//            return true;
-//        }catch (SQLException e){
-//            throw new RuntimeException(e.getMessage());
-//        }
-//    }
+    @Override
+    public String retrieveFromDB(String user) {
+        return null;
+    }
+
+    @Override
+    public void registerToDB(String pass, String salt){
+        try{
+            try(PreparedStatement pt = getConnection().prepareStatement("insert into salty (`password`,`salt`) values (?,?)")){
+                pt.setObject(1, pass);
+                pt.setObject(2, salt);
+                pt.executeUpdate();
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }
